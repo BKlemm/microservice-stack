@@ -1,0 +1,30 @@
+---
+applications:
+  - name: carpark-command
+    memory: 1G
+    no-route: true
+    path: carpark-command/target/carpark-command-0.0.1-SNAPSHOT.jar
+    env:
+      JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'
+    services:
+      - AxonServer
+    health-check-type: process
+
+  - name: carpark-query
+    memory: 1G
+    no-route: true
+    path: carpark-query/target/carpark-query-0.0.1-SNAPSHOT.jar
+    env:
+      JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'
+    services:
+      - AxonServer
+      - mariadb
+    health-check-type: process
+
+  - name: carpark-gateway
+    memory: 1G
+    path: carpark-gateway/target/carpark-gateway-0.0.1-SNAPSHOT.jar
+    env:
+      JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'
+    services:
+      - AxonServer
